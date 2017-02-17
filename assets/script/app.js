@@ -22,7 +22,10 @@ angular.module('angularWeather', ['restangular']).controller('angularWeatherCtrl
                 $scope.Data.apiWind = response.query.results.channel.wind;
                 $scope.Data.apiAtmosphere = response.query.results.channel.atmosphere;
                 $scope.Data.apiForecast.apiTodayForecast = response.query.results.channel.item.forecast[0];
+                delete $scope.Data.apiForecast.apiTodayForecast.code;
                 $scope.Data.apiForecast.apiTomorrowForecast = response.query.results.channel.item.forecast[1];
+                delete $scope.Data.apiForecast.apiTomorrowForecast.code;
+
 
                 // $scope.Data.apiLocation = response.query.results.channel.location;
                 console.log($scope.Data)

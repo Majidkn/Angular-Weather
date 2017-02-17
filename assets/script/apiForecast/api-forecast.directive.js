@@ -18,7 +18,9 @@ angular.module('angularWeather').directive("apiForecast", function() {
             };
 
             var Run = function() {
-                console.log($scope.forecastData)
+                if($scope.forecastData.apiTodayForecast.length == undefined) {
+                    $scope.forecastData = {};
+                }
             };
             Run();
 

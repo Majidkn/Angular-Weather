@@ -7,11 +7,11 @@
         <script src="bower_components/angular/angular.js"></script>
         <script src="bower_components/lodash/dist/lodash.js"></script>
         <script src="bower_components/restangular/dist/restangular.js"></script>
-        <script src="assets/script/apiForecast/api-forecast.directive.js"></script>
 
         <script src="bower_components/jquery/dist/jquery.js"></script>
         <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
         <script src="assets/script/app.js"></script>
+        <script src="assets/script/apiForecast/api-forecast.directive.js"></script>
 
         <!-- Styles -->
         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
@@ -19,6 +19,7 @@
     </head>
     <body ng-controller="angularWeatherCtrl">
         <button ng-click="Func.showData()" type="submit">Show Data ()</button>
-        <api-forecast forecast-data="1"></api-forecast>
+        <api-forecast forecast-data="Data.apiForecast"></api-forecast>
+
     </body>
 </html>
