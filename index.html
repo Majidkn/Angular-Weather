@@ -18,8 +18,22 @@
         <link rel="stylesheet" href="assets/style/style.css">
     </head>
     <body ng-controller="angularWeatherCtrl">
-        <button ng-click="Func.showData()" type="submit">Show Data ()</button>
-        <api-forecast forecast-data="Data.apiForecast"></api-forecast>
+        <div style="margin: 50px;" class="container">
+            <div class="alert alert-info" role="info">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">Info:</span>
+                You Can Only Search Between Iranian Cities !
+            </div>
 
+            <form style="margin-bottom: 50px;">
+                <div class="col-sm-10">
+                    <input style="text-align: center" class="form-control" ng-model="Data.selectedCity" type="text">
+                </div>
+                <button class="btn btn-success" ng-click="Func.showData()" type="submit">Show Forecast</button>
+            </form>
+
+
+            <api-forecast ng-show="Data.isDataGotten" location-data="Data.apiLocation" forecast-data="Data.apiForecast"></api-forecast>
+        </div>
     </body>
 </html>

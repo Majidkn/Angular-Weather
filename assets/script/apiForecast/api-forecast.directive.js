@@ -3,11 +3,14 @@ angular.module('angularWeather').directive("apiForecast", function() {
         restrict : 'AE',
         templateUrl : 'assets/script/apiForecast/api-forecast.tpl.html',
         scope : {
-            forecastData: '='
+            forecastData: '=',
+            locationData: '='
         },
         controller : function($scope) {
             $scope.Data = {
-
+                dataGotten: true,
+                showToday: false,
+                showTomorrow: false
             };
             $scope.Func = {
 
@@ -19,6 +22,7 @@ angular.module('angularWeather').directive("apiForecast", function() {
 
             var Run = function() {
                 if($scope.forecastData.apiTodayForecast.length == undefined) {
+                    $scope.Data.dataGotten = false;
                     $scope.forecastData = {};
                 }
             };

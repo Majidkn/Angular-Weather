@@ -1,15 +1,15 @@
 angular.module('angularWeather', ['restangular']).controller('angularWeatherCtrl',['$scope','Restangular', function ($scope,Restangular) {
 
     $scope.Data = {
-        selectedCity: 'tehran',
+        selectedCity: '',
         apiLocation: {},
         apiWind: {},
         apiAtmosphere: {},
         apiForecast: {
             apiTodayForecast: {},
             apiTomorrowForecast: {}
-        }
-
+        },
+        isDataGotten: false
     };
 
     $scope.Func = {
@@ -25,7 +25,7 @@ angular.module('angularWeather', ['restangular']).controller('angularWeatherCtrl
                 delete $scope.Data.apiForecast.apiTodayForecast.code;
                 $scope.Data.apiForecast.apiTomorrowForecast = response.query.results.channel.item.forecast[1];
                 delete $scope.Data.apiForecast.apiTomorrowForecast.code;
-
+                $scope.Data.isDataGotten = true;
 
                 // $scope.Data.apiLocation = response.query.results.channel.location;
                 console.log($scope.Data)

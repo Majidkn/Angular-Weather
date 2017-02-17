@@ -1,1 +1,34 @@
-<label>{{forecastData}}</label>
+<div class="forecast-data">
+<!-- -32 -->
+    <div class="alert alert-warning" role="info">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span><span style="padding-left: 10px;">Country : </span>{{locationData.country}}<br>
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span><span style="padding-left: 10px;">City : </span>{{locationData.city}}<br>
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span><span style="padding-left: 10px;">Region : </span>{{locationData.region}}
+    </div>
+    <button ng-click="Data.showToday = true; Data.showTomorrow = false" class="btn btn-default">Today</button>
+    <button ng-click="Data.showTomorrow = true; Data.showToday = false" class="btn btn-default">Tomorrow</button>
+    <table class="table table-striped">
+        <thead>
+            <th>Date</th>
+            <th>Day</th>
+            <th>Highest Temperature</th>
+            <th>Lowest Temperature</th>
+            <th>Detail</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td ng-show="Data.showToday">{{forecastData.apiTodayForecast.date}}</td>
+                <td ng-show="Data.showTomorrow">{{forecastData.apiTomorrowForecast.date}}</td>
+                <td ng-show="Data.showToday">{{forecastData.apiTodayForecast.day}}</td>
+                <td ng-show="Data.showTomorrow">{{forecastData.apiTomorrowForecast.day}}</td>
+                <td ng-show="Data.showToday">{{forecastData.apiTodayForecast.high - 32}}</td>
+                <td ng-show="Data.showTomorrow">{{forecastData.apiTomorrowForecast.high -32}}</td>
+                <td ng-show="Data.showToday">{{forecastData.apiTodayForecast.low - 32}}</td>
+                <td ng-show="Data.showTomorrow">{{forecastData.apiTomorrowForecast.low - 32}}</td>
+                <td ng-show="Data.showToday">{{forecastData.apiTodayForecast.text}}</td>
+                <td ng-show="Data.showTomorrow">{{forecastData.apiTomorrowForecast.text}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <!--<label>{{forecastData}}</label>-->
+</div>
