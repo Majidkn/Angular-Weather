@@ -1,20 +1,24 @@
-<html>
+<html ng-app="angularWeather">
     <head>
 
         <meta charset="utf-8">
         <title>Angular Weather</title>
         <!-- Scripts -->
         <script src="bower_components/angular/angular.js"></script>
-        <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="bower_components/lodash/dist/lodash.js"></script>
+        <script src="bower_components/restangular/dist/restangular.js"></script>
+        <script src="assets/script/apiForecast/api-forecast.directive.js"></script>
+
         <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
         <script src="assets/script/app.js"></script>
 
         <!-- Styles -->
         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
         <link rel="stylesheet" href="assets/style/style.css">
     </head>
-    <body>
-
-
+    <body ng-controller="angularWeatherCtrl">
+        <button ng-click="Func.showData()" type="submit">Show Data ()</button>
+        <api-forecast forecast-data="1"></api-forecast>
     </body>
 </html>
