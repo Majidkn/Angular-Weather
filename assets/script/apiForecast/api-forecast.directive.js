@@ -10,7 +10,8 @@ angular.module('angularWeather').directive("apiForecast", function() {
             $scope.Data = {
                 dataGotten: true,
                 showToday: false,
-                showTomorrow: false
+                showTomorrow: false,
+
             };
             $scope.Func = {
 
@@ -24,7 +25,9 @@ angular.module('angularWeather').directive("apiForecast", function() {
                 if($scope.forecastData.apiTodayForecast.length == undefined) {
                     $scope.Data.dataGotten = false;
                     $scope.forecastData = {};
+
                 }
+
             };
             Run();
 

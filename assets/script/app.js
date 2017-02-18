@@ -27,7 +27,10 @@ angular.module('angularWeather', ['restangular']).controller('angularWeatherCtrl
                 delete $scope.Data.apiForecast.apiTomorrowForecast.code;
                 $scope.Data.isDataGotten = true;
 
-                // $scope.Data.apiLocation = response.query.results.channel.location;
+                angular.forEach($scope.Data.apiForecast, function (key) {
+                    key.high = Math.floor((key.high - 32)*(5/9));
+                    key.low = Math.floor((key.low - 32)*(5/9));
+                });
             });
         }
 
