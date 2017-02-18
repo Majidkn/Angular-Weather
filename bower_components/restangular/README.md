@@ -1275,7 +1275,7 @@ Alternatively, if you just want the stripped out response on any given call, you
 
 ````javascript
 
-$scope.showData = function () {
+$scope.showWeatherData = function () {
   baseUrl.post(someData).then(function(response) {
     console.log(response.plain());
   });

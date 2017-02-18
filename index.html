@@ -7,24 +7,41 @@
         <script src="bower_components/angular/angular.js"></script>
         <script src="bower_components/lodash/dist/lodash.js"></script>
         <script src="bower_components/restangular/dist/restangular.js"></script>
-
         <script src="bower_components/jquery/dist/jquery.js"></script>
         <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="bower_components/angular-ui-select/dist/select.js"></script>
+        <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+
+
         <script src="assets/script/app.js"></script>
         <script src="assets/script/apiForecast/api-forecast.directive.js"></script>
 
+
+
         <!-- Styles -->
         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+        <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css">
         <link rel="stylesheet" href="assets/style/style.css">
+
     </head>
     <body ng-controller="angularWeatherCtrl">
         <div style="margin: 50px auto;" class="container">
-
+            <div class="alert alert-info" role="info">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">Info:</span>
+                You Can Only Search Between Capital Cities !
+            </div>
             <form style="margin-bottom: 20px;">
                 <div class="col-sm-10">
-                    <input placeholder="Enter A City ..." style="text-align: center" class="form-control" ng-model="Data.selectedCity" type="text">
+                    <ui-select ng-model="Data.selectedCity">
+                        <ui-select-match placeholder="Select A City ...">{{Data.selectedCity}}</ui-select-match>
+                        <ui-select-choices repeat="city in Data.locationData | filter: $select.search track by $index">
+                            <div ng-bind-html="Func.trustAsHtml((city | highlight: $select.search))"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                    <!--<input placeholder="Enter A City ..." style="text-align: center" class="form-control" ng-model="Data.selectedCity" type="text">-->
                 </div>
-                <button class="btn btn-success" ng-click="Func.showData()" type="submit">Show Forecast</button>
+                <button class="btn btn-success" ng-click="Func.showWeatherData()" type="submit">Show Forecast</button>
             </form>
 
 

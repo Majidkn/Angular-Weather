@@ -1,7 +1,8 @@
-angular.module('angularWeather', ['restangular']).controller('angularWeatherCtrl',['$scope','Restangular', function ($scope,Restangular) {
+angular.module('angularWeather', ['restangular','ui.select','ngSanitize']).controller('angularWeatherCtrl',['$scope','Restangular','$sce', function ($scope,Restangular,$sce) {
 
     $scope.Data = {
         selectedCity: '',
+        locationData: [],
         apiLocation: {},
         apiWind: {},
         apiAtmosphere: {},
@@ -13,11 +14,24 @@ angular.module('angularWeather', ['restangular']).controller('angularWeatherCtrl
     };
 
     $scope.Func = {
-        getData: function() {
+        trustAsHtml: function(value) {
+            return $sce.trustAsHtml(value);
+        },
+        getWeatherData: function() {
             return Restangular.oneUrl('api', 'https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="'+ $scope.Data.selectedCity +'")&format=json').get();
         },
-        showData: function () {
-            $scope.Func.getData().then(function (response) {
+        getCitiesData: function () {
+            return Restangular.oneUrl('city', 'https://restcountries.eu/rest/v1/all').get();
+        },
+        showCitiesData: function () {
+            $scope.Func.getCitiesData().then(function (response) {
+                angular.forEach(response, function (key) {
+                    $scope.Data.locationData.push(key.name +', '+key.capital);
+                });
+            });
+        },
+        showWeatherData: function () {
+            $scope.Func.getWeatherData().then(function (response) {
                 $scope.Data.apiLocation = response.query.results.channel.location;
                 $scope.Data.apiWind = response.query.results.channel.wind;
                 $scope.Data.apiAtmosphere = response.query.results.channel.atmosphere;
@@ -31,6 +45,7 @@ angular.module('angularWeather', ['restangular']).controller('angularWeatherCtrl
                     key.high = Math.floor((key.high - 32)*(5/9));
                     key.low = Math.floor((key.low - 32)*(5/9));
                 });
+
             });
         }
 
@@ -41,6 +56,7 @@ angular.module('angularWeather', ['restangular']).controller('angularWeatherCtrl
     };
     
     var Run = function () {
+        $scope.Func.showCitiesData()
     };
 
     Run();
