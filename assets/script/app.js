@@ -14,7 +14,7 @@ angular.module('angularWeather', ['restangular']).controller('angularWeatherCtrl
 
     $scope.Func = {
         getData: function() {
-            return Restangular.oneUrl('api', 'https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="'+ $scope.Data.selectedCity +', ir")&format=json').get();
+            return Restangular.oneUrl('api', 'https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="'+ $scope.Data.selectedCity +'")&format=json').get();
         },
         showData: function () {
             $scope.Func.getData().then(function (response) {
@@ -28,7 +28,6 @@ angular.module('angularWeather', ['restangular']).controller('angularWeatherCtrl
                 $scope.Data.isDataGotten = true;
 
                 // $scope.Data.apiLocation = response.query.results.channel.location;
-                console.log($scope.Data)
             });
         }
 
