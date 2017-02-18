@@ -10,7 +10,8 @@ angular.module('angularWeather', ['restangular','ui.select','ngSanitize']).contr
             apiTodayForecast: {},
             apiTomorrowForecast: {}
         },
-        isDataGotten: false
+        isDataGotten: false,
+        anotherCity: false
     };
 
     $scope.Func = {
@@ -22,6 +23,11 @@ angular.module('angularWeather', ['restangular','ui.select','ngSanitize']).contr
         },
         getCitiesData: function () {
             return Restangular.oneUrl('city', 'https://restcountries.eu/rest/v1/all').get();
+        },
+        getWikiData: function () {
+            return Restangular.oneUrl('city', 'https://en.wikipedia.org/wiki/List_of_cities_in_Iran').get();
+
+
         },
         showCitiesData: function () {
             $scope.Func.getCitiesData().then(function (response) {
@@ -56,7 +62,8 @@ angular.module('angularWeather', ['restangular','ui.select','ngSanitize']).contr
     };
     
     var Run = function () {
-        $scope.Func.showCitiesData()
+        $scope.Func.showCitiesData(),
+        $scope.Func.getWikiData()
     };
 
     Run();

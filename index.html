@@ -26,20 +26,23 @@
     </head>
     <body ng-controller="angularWeatherCtrl">
         <div style="margin: 50px auto;" class="container">
-            <div class="alert alert-info" role="info">
+            <div style="float: right; width: 100%; vertical-align: middle" class="alert alert-info" role="info">
                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                 <span class="sr-only">Info:</span>
-                You Can Only Search Between Capital Cities !
+                <p style="display: inline-block;padding: 6px;">You Can Only Search Between Capital Cities !</p>
+                <button ng-click="Data.anotherCity = true" ng-show="!Data.anotherCity" style="float: right" class="btn btn-default">I Wanna Choose Another City !</button>
+                <button ng-click="Data.anotherCity = false" ng-show="Data.anotherCity" style="float: right" class="btn btn-default">I Wanna Choose From The List !</button>
+
             </div>
             <form style="margin-bottom: 20px;">
                 <div class="col-sm-10">
-                    <ui-select ng-model="Data.selectedCity">
+                    <ui-select ng-show="!Data.anotherCity" ng-model="Data.selectedCity">
                         <ui-select-match placeholder="Select A City ...">{{Data.selectedCity}}</ui-select-match>
                         <ui-select-choices repeat="city in Data.locationData | filter: $select.search track by $index">
                             <div ng-bind-html="Func.trustAsHtml((city | highlight: $select.search))"></div>
                         </ui-select-choices>
                     </ui-select>
-                    <!--<input placeholder="Enter A City ..." style="text-align: center" class="form-control" ng-model="Data.selectedCity" type="text">-->
+                    <input ng-show="Data.anotherCity" placeholder="Enter A City ..." style="text-align: center" class="form-control" ng-model="Data.selectedCity" type="text">
                 </div>
                 <button class="btn btn-success" ng-click="Func.showWeatherData()" type="submit">Show Forecast</button>
             </form>
