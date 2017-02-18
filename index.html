@@ -29,9 +29,10 @@
             <div style="float: right; width: 100%; vertical-align: middle" class="alert alert-info" role="info">
                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                 <span class="sr-only">Info:</span>
-                <p style="display: inline-block;padding: 6px;">You Can Only Search Between Capital Cities !</p>
-                <button ng-click="Data.anotherCity = true" ng-show="!Data.anotherCity" style="float: right" class="btn btn-default">I Wanna Choose Another City !</button>
-                <button ng-click="Data.anotherCity = false" ng-show="Data.anotherCity" style="float: right" class="btn btn-default">I Wanna Choose From The List !</button>
+                <p ng-show="!Data.globalSearch" style="display: inline-block; padding: 6px;">You Can Only Search Between Capital Cities !</p>
+                <p ng-show="Data.globalSearch" style="display: inline-block; padding: 0 6px;">You Can Search Globally Between Cities !</p>
+                <button ng-click="Data.globalSearch = true" ng-show="!Data.globalSearch" style="float: right" class="btn btn-default">I Wanna Choose Another City !</button>
+                <button ng-click="Data.globalSearch = false" ng-show="Data.globalSearch" style="float: right" class="btn btn-default">I Wanna Choose From The List !</button>
             </div>
 
 
@@ -44,19 +45,19 @@
 
             <form style="margin-bottom: 20px;">
                 <div class="col-sm-10">
-                    <ui-select ng-show="!Data.anotherCity" ng-model="Data.selectedCity">
+                    <ui-select ng-show="!Data.globalSearch" ng-model="Data.selectedCity">
                         <ui-select-match placeholder="Select A City ...">{{Data.selectedCity}}</ui-select-match>
                         <ui-select-choices repeat="city in Data.locationData | filter: $select.search track by $index">
                             <div ng-bind-html="Func.trustAsHtml((city | highlight: $select.search))"></div>
                         </ui-select-choices>
                     </ui-select>
-                    <input ng-show="Data.anotherCity" placeholder="Enter A City ..." style="text-align: center" class="form-control" ng-model="Data.selectedCity" type="text">
+                    <input ng-show="Data.globalSearch" placeholder="Enter A City ..." style="text-align: center" class="form-control" ng-model="Data.selectedCity" type="text">
                 </div>
                 <button class="btn btn-success" ng-click="Func.showWeatherData()" type="submit">Show Forecast</button>
             </form>
 
 
-            <api-forecast ng-show="Data.isDataGotten && !Data.unknownCity" location-data="Data.apiLocation" forecast-data="Data.apiForecast"></api-forecast>
+            <api-forecast ng-show="Data.isDataGotten && !Data.unknownCity" current-data="Data.currentData" location-data="Data.apiLocation" forecast-data="Data.apiForecast"></api-forecast>
         </div>
 
         <footer style="position:absolute; bottom: 10px; width: 100%; text-align: center;">

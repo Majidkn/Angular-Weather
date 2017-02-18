@@ -4,8 +4,7 @@
         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span><span style="padding-left: 10px;">City : </span>{{locationData.city}}<br>
         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span><span style="padding-left: 10px;">Region : </span>{{locationData.region}}
     </div>
-    <button ng-class="(Data.showToday)? 'active' : ''" ng-click="Data.showToday = true; Data.showTomorrow = false" class="btn btn-default">Today</button>
-    <button ng-class="(Data.showTomorrow)? 'active' : ''"ng-click="Data.showTomorrow = true; Data.showToday = false" class="btn btn-default">Tomorrow</button>
+    <button style="margin-right: 10px; padding: auto 10px" ng-class="(Data.showDay[$index])? 'active' : ''" ng-repeat="theDay in forecastData track by $index" ng-click="Func.showTheDay($index)" class="btn btn-default">{{theDay.day}}</button>
     <table class="table table-striped">
         <thead>
             <th>Date</th>
@@ -16,16 +15,11 @@
         </thead>
         <tbody>
             <tr>
-                <td ng-show="Data.showToday">{{forecastData.apiTodayForecast.date}}</td>
-                <td ng-show="Data.showTomorrow">{{forecastData.apiTomorrowForecast.date}}</td>
-                <td ng-show="Data.showToday">{{forecastData.apiTodayForecast.day}}</td>
-                <td ng-show="Data.showTomorrow">{{forecastData.apiTomorrowForecast.day}}</td>
-                <td ng-show="Data.showToday">{{forecastData.apiTodayForecast.high}}</td>
-                <td ng-show="Data.showTomorrow">{{forecastData.apiTomorrowForecast.high}}</td>
-                <td ng-show="Data.showToday">{{forecastData.apiTodayForecast.low}}</td>
-                <td ng-show="Data.showTomorrow">{{forecastData.apiTomorrowForecast.low}}</td>
-                <td ng-show="Data.showToday">{{forecastData.apiTodayForecast.text}}</td>
-                <td ng-show="Data.showTomorrow">{{forecastData.apiTomorrowForecast.text}}</td>
+                <td>{{currentData.date}}</td>
+                <td>{{currentData.day}}</td>
+                <td>{{currentData.high}}</td>
+                <td>{{currentData.low}}</td>
+                <td>{{currentData.text}}</td>
             </tr>
         </tbody>
     </table>
