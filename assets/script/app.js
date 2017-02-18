@@ -11,7 +11,8 @@ angular.module('angularWeather', ['restangular','ui.select','ngSanitize']).contr
             apiTomorrowForecast: {}
         },
         isDataGotten: false,
-        anotherCity: false
+        anotherCity: false,
+        unknownCity: false
     };
 
     $scope.Func = {
@@ -24,11 +25,6 @@ angular.module('angularWeather', ['restangular','ui.select','ngSanitize']).contr
         getCitiesData: function () {
             return Restangular.oneUrl('city', 'https://restcountries.eu/rest/v1/all').get();
         },
-        getWikiData: function () {
-            return Restangular.oneUrl('city', 'https://en.wikipedia.org/wiki/List_of_cities_in_Iran').get();
-
-
-        },
         showCitiesData: function () {
             $scope.Func.getCitiesData().then(function (response) {
                 angular.forEach(response, function (key) {
@@ -38,19 +34,27 @@ angular.module('angularWeather', ['restangular','ui.select','ngSanitize']).contr
         },
         showWeatherData: function () {
             $scope.Func.getWeatherData().then(function (response) {
-                $scope.Data.apiLocation = response.query.results.channel.location;
-                $scope.Data.apiWind = response.query.results.channel.wind;
-                $scope.Data.apiAtmosphere = response.query.results.channel.atmosphere;
-                $scope.Data.apiForecast.apiTodayForecast = response.query.results.channel.item.forecast[0];
-                delete $scope.Data.apiForecast.apiTodayForecast.code;
-                $scope.Data.apiForecast.apiTomorrowForecast = response.query.results.channel.item.forecast[1];
-                delete $scope.Data.apiForecast.apiTomorrowForecast.code;
-                $scope.Data.isDataGotten = true;
+                if (response.query.results != null) {
 
-                angular.forEach($scope.Data.apiForecast, function (key) {
-                    key.high = Math.floor((key.high - 32)*(5/9));
-                    key.low = Math.floor((key.low - 32)*(5/9));
-                });
+                    $scope.Data.unknownCity = false;
+
+                    $scope.Data.apiLocation = response.query.results.channel.location;
+                    $scope.Data.apiWind = response.query.results.channel.wind;
+                    $scope.Data.apiAtmosphere = response.query.results.channel.atmosphere;
+                    $scope.Data.apiForecast.apiTodayForecast = response.query.results.channel.item.forecast[0];
+                    delete $scope.Data.apiForecast.apiTodayForecast.code;
+                    $scope.Data.apiForecast.apiTomorrowForecast = response.query.results.channel.item.forecast[1];
+                    delete $scope.Data.apiForecast.apiTomorrowForecast.code;
+                    $scope.Data.isDataGotten = true;
+
+
+                    angular.forEach($scope.Data.apiForecast, function (key) {
+                        key.high = Math.floor((key.high - 32) * (5 / 9));
+                        key.low = Math.floor((key.low - 32) * (5 / 9));
+                    });
+                }
+                else
+                    $scope.Data.unknownCity = true;
 
             });
         }
@@ -60,10 +64,9 @@ angular.module('angularWeather', ['restangular','ui.select','ngSanitize']).contr
     $scope.Apis = {
         
     };
-    
+
     var Run = function () {
-        $scope.Func.showCitiesData(),
-        $scope.Func.getWikiData()
+        $scope.Func.showCitiesData()
     };
 
     Run();
