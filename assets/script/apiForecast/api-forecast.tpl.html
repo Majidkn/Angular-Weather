@@ -4,8 +4,8 @@
         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span><span style="padding-left: 10px;">City : </span>{{locationData.city}}<br>
         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span><span style="padding-left: 10px;">Region : </span>{{locationData.region}}
     </div>
-    <button ng-click="Data.showToday = true; Data.showTomorrow = false" class="btn btn-default">Today</button>
-    <button ng-click="Data.showTomorrow = true; Data.showToday = false" class="btn btn-default">Tomorrow</button>
+    <button ng-class="(Data.showToday)? 'active' : ''" ng-click="Data.showToday = true; Data.showTomorrow = false" class="btn btn-default">Today</button>
+    <button ng-class="(Data.showTomorrow)? 'active' : ''"ng-click="Data.showTomorrow = true; Data.showToday = false" class="btn btn-default">Tomorrow</button>
     <table class="table table-striped">
         <thead>
             <th>Date</th>

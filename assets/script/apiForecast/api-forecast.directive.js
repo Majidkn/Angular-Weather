@@ -9,7 +9,7 @@ angular.module('angularWeather').directive("apiForecast", function() {
         controller : function($scope) {
             $scope.Data = {
                 dataGotten: true,
-                showToday: false,
+                showToday: true,
                 showTomorrow: false,
 
             };
