@@ -42,8 +42,8 @@ angular.module('angularWeather', ['restangular','ui.select','ngSanitize']).contr
                     $scope.Data.apiForecast = response.query.results.channel.item.forecast;
                     $scope.Data.isDataGotten = true;
 
-                    for(var i = 4 ; i < 10 ; i++)
-                        $scope.Data.apiForecast.splice(i,1);
+                    for(var i = 7 ; i < 10 ; i++)
+                        delete $scope.Data.apiForecast[i]
                     $scope.Data.currentData = $scope.Data.apiForecast[0];
                     angular.forEach($scope.Data.apiForecast, function (key) {
                         key.high = Math.floor((key.high - 32) * (5 / 9));

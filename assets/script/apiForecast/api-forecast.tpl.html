@@ -4,7 +4,7 @@
         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span><span style="padding-left: 10px;">City : </span>{{locationData.city}}<br>
         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span><span style="padding-left: 10px;">Region : </span>{{locationData.region}}
     </div>
-    <button style="margin-right: 10px; padding: auto 10px" ng-class="(Data.showDay[$index])? 'active' : ''" ng-repeat="theDay in forecastData track by $index" ng-click="Func.showTheDay($index)" class="btn btn-default">{{theDay.day}}</button>
+    <button style="margin-right: 10px; padding: auto 10px" ng-show="theDay != null" ng-class="(Data.showDay[$index])? 'active' : ''" ng-repeat="theDay in forecastData track by $index" ng-click="Func.showTheDay($index)" class="btn btn-default">{{theDay.day}}</button>
     <table class="table table-striped">
         <thead>
             <th>Date</th>
