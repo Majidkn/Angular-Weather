@@ -13,16 +13,15 @@ angular.module('angularWeather').directive("apiForecast", function() {
                 showToday: true,
                 showTomorrow: false,
                 currentData: {},
-                showDay: [true]
+                showDay: [true],
+                tempSelectedIndex: 0
             };
             $scope.Func = {
                 showTheDay: function (day) {
                     $scope.currentData = $scope.forecastData[day];
-                    for(var i = 0 ; i < 7 ; i++)
-                        if(i != day)
-                            $scope.Data.showDay[i] = false;
-                        else
-                            $scope.Data.showDay[i] = true;
+                    $scope.Data.showDay[day] = true;
+                    $scope.Data.showDay[$scope.Data.tempSelectedIndex] = false;
+                    $scope.Data.tempSelectedIndex = day;
                 }
             };
 
@@ -31,11 +30,6 @@ angular.module('angularWeather').directive("apiForecast", function() {
             };
 
             var Run = function() {
-                /*if($scope.forecastData.apiTodayForecast.length == undefined) {
-                    $scope.Data.dataGotten = false;
-                    $scope.forecastData = {};
-
-                }*/
 
             };
             Run();

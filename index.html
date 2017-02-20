@@ -39,19 +39,19 @@
             <div ng-show="Data.unknownCity" style="float: right; width: 100%; vertical-align: middle" class="alert alert-danger" role="danger">
                 <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
                 <span class="sr-only">Error:</span>
-                <p style="display: inline-block;padding: 6px;">Unknown City !!</p>
+                <p style="display: inline-block;padding: 6px;">{{Data.tempCity | uppercase}} Is An Unknown City !!</p>
             </div>
 
 
             <form style="margin-bottom: 20px;">
                 <div class="col-sm-10">
-                    <ui-select ng-show="!Data.globalSearch" ng-model="Data.selectedCity">
+                    <ui-select ng-change="Data.tempCity = ''" ng-show="!Data.globalSearch" ng-model="Data.selectedCity">
                         <ui-select-match placeholder="Select A City ...">{{Data.selectedCity}}</ui-select-match>
                         <ui-select-choices repeat="city in Data.locationData | filter: $select.search track by $index">
                             <div ng-bind-html="Func.trustAsHtml((city | highlight: $select.search))"></div>
                         </ui-select-choices>
                     </ui-select>
-                    <input ng-show="Data.globalSearch" placeholder="Enter A City ..." style="text-align: center" class="form-control" ng-model="Data.selectedCity" type="text">
+                    <input ng-change="Data.tempCity = ''" ng-show="Data.globalSearch" placeholder="Enter A City ..." style="text-align: center" class="form-control" ng-model="Data.selectedCity" type="text">
                 </div>
                 <button class="btn btn-success" ng-click="Func.showWeatherData()" type="submit">Show Forecast</button>
             </form>

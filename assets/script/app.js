@@ -18,7 +18,11 @@ angular.module('angularWeather', ['restangular','ui.select','ngSanitize']).contr
             return $sce.trustAsHtml(value);
         },
         getWeatherData: function() {
+            if($scope.Data.unknownCity)
+                $scope.Data.tempCity = $scope.Data.selectedCity;
+            // console.log(Restangular.oneUrl('api', 'https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="' + $scope.Data.selectedCity + '")&format=json').get());
             return Restangular.oneUrl('api', 'https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="'+ $scope.Data.selectedCity +'")&format=json').get();
+
         },
         getCitiesData: function () {
             return Restangular.oneUrl('city', 'https://restcountries.eu/rest/v1/all').get();
