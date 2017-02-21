@@ -1,7 +1,7 @@
 angular.module('angularWeather', ['restangular','ui.select','ngSanitize']).controller('angularWeatherCtrl',['$scope','Restangular','$sce', function ($scope,Restangular,$sce) {
 
     $scope.Data = {
-        selectedCity: '',
+        selectedCity: 'tehran',
         locationData: [],
         apiLocation: {},
         apiWind: {},
@@ -10,7 +10,11 @@ angular.module('angularWeather', ['restangular','ui.select','ngSanitize']).contr
         isDataGotten: false,
         anotherCity: false,
         unknownCity: false,
-        currentData: {}
+        currentData: {},
+        littleDayNames: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
+        completeDayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        DetailsClasses: ['wi-tornado','wi-hurricane','wi-hurricane','wi-thunderstorm','wi-thunderstorm','wi-night-rain-mix','wi-night-rain-mix','wi-night-rain-mix'],
+        detailsClass: ''
     };
 
     $scope.Func = {
@@ -36,6 +40,7 @@ angular.module('angularWeather', ['restangular','ui.select','ngSanitize']).contr
         },
         showWeatherData: function () {
             $scope.Func.getWeatherData().then(function (response) {
+                $scope.Data.DetailsClasses[32] = 'wi-day-sunny';
                 if (response.query.results != null) {
 
                     $scope.Data.unknownCity = false;
@@ -46,12 +51,31 @@ angular.module('angularWeather', ['restangular','ui.select','ngSanitize']).contr
                     $scope.Data.apiForecast = response.query.results.channel.item.forecast;
                     $scope.Data.isDataGotten = true;
 
+                    // for(var i = 0 ; i < )
                     for(var i = 7 ; i < 10 ; i++)
                         delete $scope.Data.apiForecast[i]
+
                     $scope.Data.currentData = $scope.Data.apiForecast[0];
-                    angular.forEach($scope.Data.apiForecast, function (key) {
-                        key.high = Math.floor((key.high - 32) * (5 / 9));
-                        key.low = Math.floor((key.low - 32) * (5 / 9));
+                    angular.forEach($scope.Data.apiForecast, function (value, key) {
+                        // console.log(value, ' = ', key);
+
+                        for(var i = 0 ; i < 7 ; i++){
+
+                            // Change Little Day Names To Complete Ones
+                            if(value.day == $scope.Data.littleDayNames[i]){
+                                value.day = $scope.Data.completeDayNames[i];
+                            }
+
+                            // Set The Detail Icon
+                            for(var j = 0 ; j < 48 ; j++){
+                                if(value.code == j){
+                                    $scope.Data.detailsClass = $scope.Data.DetailsClasses[i];
+                                }
+                            }
+                            // if(value.code == 32)
+                        }
+                        value.high = Math.floor((value.high - 32) * (5 / 9));
+                        value.low = Math.floor((value.low - 32) * (5 / 9));
                     });
                 }
                 else

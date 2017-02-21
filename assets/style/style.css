@@ -1,0 +1,25 @@
+.forecast-data div:not(.alert){
+    font-size: 34px;
+}
+.forecast-data i{
+    font-size: 100px;
+    position: relative;
+    top: 25px;
+    padding-right: 10px;
+}
+.displayData ul{
+    display: inline-block;
+}
+.dateStatus span{
+    font-size: 60px;
+    position: relative;
+    top: 15px;
+    padding-right: 10px;
+}
+.forecast-data li{
+    display: inline-block;
+    margin-right: 20px;
+}
+.tempStatus{
+    bottom: 30px;
+}

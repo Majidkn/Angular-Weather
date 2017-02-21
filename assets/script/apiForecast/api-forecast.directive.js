@@ -5,7 +5,8 @@ angular.module('angularWeather').directive("apiForecast", function() {
         scope : {
             forecastData: '=',
             locationData: '=',
-            currentData: '='
+            currentData: '=',
+            detailClass: '='
         },
         controller : function($scope) {
             $scope.Data = {

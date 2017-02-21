@@ -22,6 +22,7 @@
         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
         <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css">
         <link rel="stylesheet" href="assets/style/style.css">
+        <link rel="stylesheet" href="https://erikflowers.github.io/weather-icons/css/weather-icons.css">
 
     </head>
     <body ng-controller="angularWeatherCtrl">
@@ -42,10 +43,9 @@
                 <p style="display: inline-block;padding: 6px;">{{Data.tempCity | uppercase}} Is An Unknown City !!</p>
             </div>
 
-
             <form style="margin-bottom: 20px;">
                 <div class="col-sm-10">
-                    <ui-select ng-change="Data.tempCity = ''" ng-show="!Data.globalSearch" ng-model="Data.selectedCity">
+                    <ui-select autofocus ng-change="Data.tempCity = ''" ng-show="!Data.globalSearch" ng-model="Data.selectedCity">
                         <ui-select-match placeholder="Select A City ...">{{Data.selectedCity}}</ui-select-match>
                         <ui-select-choices repeat="city in Data.locationData | filter: $select.search track by $index">
                             <div ng-bind-html="Func.trustAsHtml((city | highlight: $select.search))"></div>
@@ -56,8 +56,7 @@
                 <button class="btn btn-success" ng-click="Func.showWeatherData()" type="submit">Show Forecast</button>
             </form>
 
-
-            <api-forecast ng-show="Data.isDataGotten && !Data.unknownCity" current-data="Data.currentData" location-data="Data.apiLocation" forecast-data="Data.apiForecast"></api-forecast>
+            <api-forecast ng-show="Data.isDataGotten && !Data.unknownCity" detail-class="Data.detailsClass" current-data="Data.currentData" location-data="Data.apiLocation" forecast-data="Data.apiForecast"></api-forecast>
         </div>
 
         <footer style="position:absolute; bottom: 10px; width: 100%; text-align: center;">
